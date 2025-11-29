@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-11-29] - Simplified Frontend UI
+
+### Removed
+- Camera input dropdown and camera button from UI
+- Text message input field and send button
+- Model response type selector (Audio/Text radio buttons)
+- Related JavaScript functions: `cameraBtnClick()`, `newUserMessage()`, `newCameraSelected()`, `getAvailableCameras()`, `setAvailableCamerasOptions()`
+
+### Changed
+- Frontend now focuses on voice-only interaction with microphone and screen sharing
+
 ## [2025-11-29] - Authentication Moved to Backend
 
 ### Changed

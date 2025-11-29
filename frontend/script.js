@@ -1,7 +1,6 @@
 window.addEventListener("load", (event) => {
     console.log("Hello Gemini Realtime Demo!");
 
-    setAvailableCamerasOptions();
     setAvailableMicrophoneOptions();
 });
 
@@ -23,10 +22,8 @@ const speaking = document.getElementById("speaking");
 
 const micBtn = document.getElementById("micBtn");
 const micOffBtn = document.getElementById("micOffBtn");
-const cameraBtn = document.getElementById("cameraBtn");
 const screenBtn = document.getElementById("screenBtn");
 
-const cameraSelect = document.getElementById("cameraSource");
 const micSelect = document.getElementById("audioSource");
 
 const geminiLiveApi = new GeminiLiveAPI(PROXY_URL, PROJECT_ID, MODEL, API_HOST);
@@ -99,14 +96,6 @@ function newModelMessage(message) {
     addMessageToChat(">> " + message);
 }
 
-function newUserMessage() {
-    const textMessage = document.getElementById("text-message");
-    addMessageToChat("User: " + textMessage.value);
-    geminiLiveApi.sendTextMessage(textMessage.value);
-
-    textMessage.value = "";
-}
-
 function startAudioInput() {
     liveAudioInputManager.connectMicrophone();
 }
@@ -145,29 +134,14 @@ liveScreenManager.onNewFrame = (b64Image) => {
     geminiLiveApi.sendImageMessage(b64Image);
 };
 
-function startCameraCapture() {
-    liveScreenManager.stopCapture();
-    liveVideoManager.startWebcam();
-}
-
 function startScreenCapture() {
     liveVideoManager.stopWebcam();
     liveScreenManager.startCapture();
 }
 
-function cameraBtnClick() {
-    startCameraCapture();
-    console.log("cameraBtnClick");
-}
-
 function screenShareBtnClick() {
     startScreenCapture();
     console.log("screenShareBtnClick");
-}
-
-function newCameraSelected() {
-    console.log("newCameraSelected ", cameraSelect.value);
-    liveVideoManager.updateWebcamDevice(cameraSelect.value);
 }
 
 function newMicSelected() {
@@ -202,10 +176,6 @@ async function getAvailableDevices(deviceType) {
     return devices;
 }
 
-async function getAvailableCameras() {
-    return await this.getAvailableDevices("videoinput");
-}
-
 async function getAvailableAudioInputs() {
     return await this.getAvailableDevices("audioinput");
 }
@@ -222,12 +192,6 @@ function setMaterialSelect(allOptions, selectElement) {
 
         selectElement.appendChild(option);
     });
-}
-
-async function setAvailableCamerasOptions() {
-    const cameras = await getAvailableCameras();
-    const videoSelect = document.getElementById("cameraSource");
-    setMaterialSelect(cameras, videoSelect);
 }
 
 async function setAvailableMicrophoneOptions() {

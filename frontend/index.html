@@ -44,37 +44,6 @@
       ></md-outlined-text-field>
     </div>
 
-    <div class="modality-container">
-      <p class="md-typescale-body-medium" style="margin-top: 0">
-        Model response type
-      </p>
-
-      <form>
-        <md-radio
-          id="audio-radio"
-          name="responseModality"
-          value="AUDIO"
-          checked="checked"
-        ></md-radio>
-        <label for="audio-radio">
-          <span class="material-symbols-outlined"> volume_up </span>
-          <span class="icon-text">Audio</span>
-        </label>
-
-        <br /><br />
-
-        <md-radio
-          id="text-radio"
-          name="responseModality"
-          value="TEXT"
-        ></md-radio>
-        <label for="text-radio">
-          <span class="material-symbols-outlined"> text_fields </span>
-          <span class="icon-text">Text</span>
-        </label>
-      </form>
-    </div>
-
     <md-outlined-text-field
       id="systemInstructions"
       type="textarea"
@@ -121,17 +90,6 @@
     <div>
       <div>
         <md-outlined-select
-          id="cameraSource"
-          label="Camera Input"
-          onchange="newCameraSelected()"
-        >
-        </md-outlined-select>
-      </div>
-
-      <br />
-
-      <div>
-        <md-outlined-select
           id="audioSource"
           label="Microphone Input"
           onchange="newMicSelected()"
@@ -153,12 +111,6 @@
           </md-filled-icon-button>
         </span>
 
-        <span id="cameraBtn">
-          <md-filled-icon-button onclick="cameraBtnClick()">
-            <md-icon>videocam</md-icon>
-          </md-filled-icon-button>
-        </span>
-
         <span id="screenBtn">
           <md-filled-icon-button onclick="screenShareBtnClick()">
             <md-icon>present_to_all</md-icon>
@@ -172,18 +124,6 @@
         <video id="video" autoplay playsinline muted></video>
         <canvas id="canvas"></canvas>
       </div>
-    </div>
-    <div>
-      <md-outlined-text-field
-        id="text-message"
-        label="Text Message"
-        value=""
-      ></md-outlined-text-field>
-      <md-icon-button onclick="newUserMessage()">
-        <md-icon>send</md-icon>
-      </md-icon-button>
-      <br />
-      <div id="text-chat"></div>
     </div>
   </div>
 

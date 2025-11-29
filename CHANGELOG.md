@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-11-29] - Move Project ID to Backend
+
+### Changed
+- Backend now loads `GOOGLE_CLOUD_PROJECT_ID` from .env file
+- Project ID included in WebSocket SERVICE_URL as query parameter
+
+### Removed
+- Project ID input field from frontend UI
+- Project ID handling logic from script.js
+
 ## [2025-11-29] - Remove Video and Screen Sharing Features
 
 ### Removed

@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 HOST = "us-central1-aiplatform.googleapis.com"
-SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent"
+PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID")
+SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent?project={PROJECT_ID}"
 BEARER_TOKEN = os.getenv("GOOGLE_CLOUD_TOKEN")
 
 DEBUG = False

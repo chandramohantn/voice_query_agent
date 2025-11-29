@@ -32,19 +32,11 @@ While some web development experience, particularly with localhost, port numbers
 You can set up this app locally or via Cloud Shell.
 
 ### Setup locally
-
-1. Clone the repository and cd into the correct directory
-
-    ```sh
-    git clone https://github.com/GoogleCloudPlatform/generative-ai.git
-    cd generative-ai/gemini/multimodal-live-api/websocket-demo-app
-    ```
-
 1. Create a new virtual environment and activate it:
 
     ```sh
-    python3 -m venv env
-    source env/bin/activate
+    python3 -m venv .venv
+    source .venv/bin/activate
     ```
 
 1. Install dependencies:
@@ -68,17 +60,15 @@ You can set up this app locally or via Cloud Shell.
 
     ```sh
     cd frontend
-    python3 -m http.server
+    python3 -m http.server 8001
     ```
 
-1. Point your browser to the demo app UI based on the output of the terminal. (e.g., it may be `http://localhost:8000`, or it may use a different port.)
+1. Point your browser to the demo app UI based on the output of the terminal. (e.g., it may be `http://localhost:8001`, or it may use a different port.)
 
 1. Get your Google Cloud access token:
    Run the following command in a terminal with gcloud installed to set your project, and to retrieve your access token.
 
     ```sh
-    gcloud components update
-    gcloud components install beta
     gcloud config set project YOUR-PROJECT-ID
     gcloud auth print-access-token
     ```

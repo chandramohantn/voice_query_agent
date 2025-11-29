@@ -10,11 +10,9 @@ const PROJECT_ID = "gen-lang-client-0427088816";
 const MODEL = "gemini-2.0-flash-live-preview-04-09";
 const API_HOST = "us-central1-aiplatform.googleapis.com";
 
-const accessTokenInput = document.getElementById("token");
 const projectInput = document.getElementById("project");
 const systemInstructionsInput = document.getElementById("systemInstructions");
 
-CookieJar.init("token");
 CookieJar.init("project");
 CookieJar.init("systemInstructions");
 
@@ -70,7 +68,7 @@ function connectBtnClick() {
     };
 
     geminiLiveApi.setProjectId(projectInput.value);
-    geminiLiveApi.connect(accessTokenInput.value);
+    geminiLiveApi.connect();
 }
 
 const liveAudioOutputManager = new LiveAudioOutputManager();

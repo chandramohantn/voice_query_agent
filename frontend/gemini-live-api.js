@@ -60,8 +60,7 @@ class GeminiLiveAPI {
         this.accessToken = newAccessToken;
     }
 
-    connect(accessToken) {
-        this.setAccessToken(accessToken);
+    connect() {
         this.setupWebSocketToService();
     }
 
@@ -106,12 +105,6 @@ class GeminiLiveAPI {
     }
 
     sendInitialSetupMessages() {
-        const serviceSetupMessage = {
-            bearer_token: this.accessToken,
-            service_url: this.serviceUrl,
-        };
-        this.sendMessage(serviceSetupMessage);
-
         const sessionSetupMessage = {
             setup: {
                 model: this.modelUri,

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-11-29] - Remove Video and Screen Sharing Features
+
+### Removed
+- Screen share button and functionality from UI
+- Video preview section (video and canvas elements)
+- `LiveVideoManager` class for webcam functionality
+- `LiveScreenManager` class for screen capture functionality
+- Related JavaScript functions: `startScreenCapture()`, `screenShareBtnClick()`
+- Video/screen frame capture and processing code
+
+### Changed
+- Application now supports audio-only interaction via microphone
+
 ## [2025-11-29] - Simplified Frontend UI
 
 ### Removed

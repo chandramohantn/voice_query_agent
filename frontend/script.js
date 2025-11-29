@@ -22,7 +22,6 @@ const speaking = document.getElementById("speaking");
 
 const micBtn = document.getElementById("micBtn");
 const micOffBtn = document.getElementById("micOffBtn");
-const screenBtn = document.getElementById("screenBtn");
 
 const micSelect = document.getElementById("audioSource");
 
@@ -117,31 +116,6 @@ function micOffBtnClick() {
 
     micBtn.hidden = false;
     micOffBtn.hidden = true;
-}
-
-const videoElement = document.getElementById("video");
-const canvasElement = document.getElementById("canvas");
-
-const liveVideoManager = new LiveVideoManager(videoElement, canvasElement);
-
-const liveScreenManager = new LiveScreenManager(videoElement, canvasElement);
-
-liveVideoManager.onNewFrame = (b64Image) => {
-    geminiLiveApi.sendImageMessage(b64Image);
-};
-
-liveScreenManager.onNewFrame = (b64Image) => {
-    geminiLiveApi.sendImageMessage(b64Image);
-};
-
-function startScreenCapture() {
-    liveVideoManager.stopWebcam();
-    liveScreenManager.startCapture();
-}
-
-function screenShareBtnClick() {
-    startScreenCapture();
-    console.log("screenShareBtnClick");
 }
 
 function newMicSelected() {

@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-02] - Containerize Application with Docker
+
+### Added
+- `backend/Dockerfile` for Python WebSocket server containerization
+- `backend/.dockerignore` to exclude unnecessary files from Docker image
+- `frontend/Dockerfile` with nginx for serving static files
+- `frontend/.dockerignore` for frontend container
+- `docker-compose.yml` to orchestrate backend and frontend services
+- `build-and-test.sh` script for automated build, deployment, and testing
+- `cleanup.sh` script to stop all services
+
+### Changed
+- Backend now reads `PORT` and `BIND_HOST` from environment variables
+- Backend binds to 0.0.0.0 instead of localhost for container networking
+- Removed project ID query parameter from SERVICE_URL (not supported by Gemini API)
+- Frontend now served via nginx container on port 8001
+- Backend runs on port 8080
+
+### Infrastructure
+- Backend: Python 3.11-slim Docker image
+- Frontend: nginx:alpine Docker image
+- Both services managed via docker-compose
+
 ## [2025-11-29] - Move Project ID to Backend
 
 ### Changed

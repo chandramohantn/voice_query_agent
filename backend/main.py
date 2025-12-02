@@ -11,8 +11,10 @@ load_dotenv()
 
 HOST = "us-central1-aiplatform.googleapis.com"
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID")
-SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent?project={PROJECT_ID}"
+SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent"
 BEARER_TOKEN = os.getenv("GOOGLE_CLOUD_TOKEN")
+PORT = int(os.getenv("PORT", "8080"))
+BIND_HOST = os.getenv("BIND_HOST", "0.0.0.0")
 
 DEBUG = False
 
@@ -80,8 +82,8 @@ async def main() -> None:
     """
     Starts the WebSocket server and listens for incoming client connections.
     """
-    async with websockets.serve(handle_client, "localhost", 8080):
-        print("Running websocket server localhost:8080...")
+    async with websockets.serve(handle_client, BIND_HOST, PORT):
+        print(f"Running websocket server {BIND_HOST}:{PORT}...")
         # Run forever
         await asyncio.Future()
 

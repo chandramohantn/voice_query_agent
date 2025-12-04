@@ -22,7 +22,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8001:80"
+      - "80:80"
+      - "443:443"
     environment:
       - BACKEND_URL=${BACKEND_URL:-ws://localhost:8080}
       - PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}

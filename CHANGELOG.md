@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Add HTTPS Support with Self-Signed Certificates
+
+### Added
+- `generate-ssl.sh` script to create self-signed SSL certificates
+- `frontend/nginx.conf` with SSL configuration
+- SSL certificate support in frontend Dockerfile
+- HTTPS (443) and HTTP (80) port exposure in docker-compose
+
+### Changed
+- Frontend now serves over HTTPS on port 443
+- HTTP traffic on port 80 redirects to HTTPS
+- nginx configured with TLS 1.2 and 1.3 support
+- Frontend ports changed from 8001 to 80/443
+
+### Security
+- SSL/TLS encryption for frontend traffic
+- Secure WebSocket (wss://) support for backend connections
+
+### Notes
+- Uses self-signed certificates (browser warnings expected)
+- Suitable for development/testing without domain name
+- For production, use Let's Encrypt or AWS Certificate Manager
+
 ## [2025-12-05] - Add Environment Variable Configuration for Frontend
 
 ### Added

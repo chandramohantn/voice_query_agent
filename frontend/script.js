@@ -4,10 +4,10 @@ window.addEventListener("load", (event) => {
     setAvailableMicrophoneOptions();
 });
 
-const PROXY_URL = "ws://localhost:8080";
-const PROJECT_ID = "gen-lang-client-0427088816";
-const MODEL = "gemini-2.0-flash-live-preview-04-09";
-const API_HOST = "us-central1-aiplatform.googleapis.com";
+const PROXY_URL = window.ENV?.BACKEND_URL || "ws://localhost:8080";
+const PROJECT_ID = window.ENV?.PROJECT_ID || "gen-lang-client-0427088816";
+const MODEL = window.ENV?.MODEL || "gemini-2.0-flash-live-preview-04-09";
+const API_HOST = window.ENV?.API_HOST || "us-central1-aiplatform.googleapis.com";
 
 const systemInstructionsInput = document.getElementById("systemInstructions");
 

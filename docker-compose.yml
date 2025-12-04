@@ -23,5 +23,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8001:80"
+    environment:
+      - BACKEND_URL=${BACKEND_URL:-ws://localhost:8080}
+      - PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}
+      - MODEL=${GEMINI_MODEL}
+      - API_HOST=${API_HOST}
+    env_file:
+      - .env
     depends_on:
       - backend

@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Add Environment Variable Configuration for Frontend
+
+### Added
+- `frontend/env.template.js` for environment variable template
+- `frontend/docker-entrypoint.sh` to generate env.js at runtime
+- `.env.example` file with all required environment variables
+- `BACKEND_URL` environment variable for configuring WebSocket endpoint
+
+### Changed
+- Frontend now reads configuration from environment variables via `window.ENV`
+- `script.js` updated to use `window.ENV` for PROXY_URL, PROJECT_ID, MODEL, and API_HOST
+- Frontend Dockerfile uses custom entrypoint to inject environment variables
+- docker-compose.yml passes environment variables to frontend container
+- All frontend configuration now externalized (no hardcoded values)
+
+### Benefits
+- Easy deployment to different environments without code changes
+- Backend URL configurable per environment
+- All sensitive/environment-specific values in .env file
+
 ## [2025-12-02] - Containerize Application with Docker
 
 ### Added

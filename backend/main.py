@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import ssl
 
 import websockets
 from websockets.legacy.protocol import WebSocketCommonProtocol
@@ -15,6 +16,8 @@ SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/B
 BEARER_TOKEN = os.getenv("GOOGLE_CLOUD_TOKEN")
 PORT = int(os.getenv("PORT", "8080"))
 BIND_HOST = os.getenv("BIND_HOST", "0.0.0.0")
+SSL_CERT = os.getenv("SSL_CERT", None)
+SSL_KEY = os.getenv("SSL_KEY", None)
 
 DEBUG = False
 
@@ -82,8 +85,15 @@ async def main() -> None:
     """
     Starts the WebSocket server and listens for incoming client connections.
     """
-    async with websockets.serve(handle_client, BIND_HOST, PORT):
-        print(f"Running websocket server {BIND_HOST}:{PORT}...")
+    ssl_context = None
+    if SSL_CERT and SSL_KEY:
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        ssl_context.load_cert_chain(SSL_CERT, SSL_KEY)
+        print(f"Running secure websocket server (wss) {BIND_HOST}:{PORT}...")
+    else:
+        print(f"Running websocket server (ws) {BIND_HOST}:{PORT}...")
+    
+    async with websockets.serve(handle_client, BIND_HOST, PORT, ssl=ssl_context):
         # Run forever
         await asyncio.Future()
 

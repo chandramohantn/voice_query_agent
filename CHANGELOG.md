@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Add SSL/TLS Support for Backend WebSocket
+
+### Added
+- `setup-backend-ssl.sh` script to copy SSL certificates to backend
+- SSL/TLS support in backend WebSocket server
+- SSL_CERT and SSL_KEY environment variables for backend
+- Secure WebSocket (wss://) support in backend
+
+### Changed
+- Backend now supports both ws:// and wss:// protocols
+- Backend Dockerfile includes SSL certificates
+- docker-compose.yml configures backend with SSL certificate paths
+- Backend prints startup message indicating secure/non-secure mode
+- BACKEND_URL default changed to wss:// for secure connections
+
+### Fixed
+- Mixed content blocking issue (HTTPS frontend connecting to non-secure WebSocket)
+- Browser security warnings when connecting from HTTPS frontend
+
+### Security
+- End-to-end encryption for WebSocket connections
+- Secure communication between frontend and backend
+
 ## [2025-12-05] - Add HTTPS Support with Self-Signed Certificates
 
 ### Added

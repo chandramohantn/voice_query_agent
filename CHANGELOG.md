@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Add Automated Service Account Setup Script
+
+### Added
+- `setup-service-account.sh` script for automated service account creation
+- `.gitignore` file to exclude sensitive files from version control
+- Idempotent service account setup (safe to run multiple times)
+- Automatic project ID detection from .env file
+- Interactive prompts for missing configuration
+
+### Changed
+- Service account setup now fully automated
+- Key file automatically saved as `service-account-key.json`
+
+### Security
+- Added .gitignore to prevent committing sensitive files
+- Service account key excluded from git
+- SSL certificates excluded from git
+- .env file excluded from git
+
+### Developer Experience
+- One-command service account setup
+- Clear success messages and next steps
+- Checks for existing resources before creating
+
 ## [2025-12-05] - Add Service Account Authentication Support
 
 ### Added

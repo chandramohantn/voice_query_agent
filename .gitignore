@@ -1,6 +1,30 @@
-.venv
+# Environment variables
 .env
-.vscode
-.pyc
+
+# Service account key
+service-account-key.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# SSL certificates
+frontend/ssl/
+backend/ssl/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-*.pyc
+Thumbs.db

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Fix Missing Requests Dependency
+
+### Fixed
+- Added missing `requests` library to requirements.txt
+- Fixed ImportError when using google-auth transport
+
+### Changed
+- Updated backend/requirements.txt to include requests==2.31.0
+
 ## [2025-12-05] - Add Automated Service Account Setup Script
 
 ### Added

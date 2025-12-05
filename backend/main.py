@@ -7,19 +7,39 @@ import websockets
 from websockets.legacy.protocol import WebSocketCommonProtocol
 from websockets.legacy.server import WebSocketServerProtocol
 from dotenv import load_dotenv
+from google.oauth2 import service_account
+from google.auth.transport.requests import Request
 
 load_dotenv()
 
 HOST = "us-central1-aiplatform.googleapis.com"
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID")
 SERVICE_URL = f"wss://{HOST}/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent"
-BEARER_TOKEN = os.getenv("GOOGLE_CLOUD_TOKEN")
+SERVICE_ACCOUNT_KEY = os.getenv("SERVICE_ACCOUNT_KEY", None)
+BEARER_TOKEN = os.getenv("GOOGLE_CLOUD_TOKEN", None)
 PORT = int(os.getenv("PORT", "8080"))
 BIND_HOST = os.getenv("BIND_HOST", "0.0.0.0")
 SSL_CERT = os.getenv("SSL_CERT", None)
 SSL_KEY = os.getenv("SSL_KEY", None)
 
 DEBUG = False
+
+
+def get_access_token():
+    """Get access token from service account or use provided token."""
+    if SERVICE_ACCOUNT_KEY and os.path.exists(SERVICE_ACCOUNT_KEY):
+        print(f"Using service account key: {SERVICE_ACCOUNT_KEY}")
+        credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_KEY,
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+        credentials.refresh(Request())
+        return credentials.token
+    elif BEARER_TOKEN:
+        print("Using provided bearer token")
+        return BEARER_TOKEN
+    else:
+        raise ValueError("No authentication method provided. Set SERVICE_ACCOUNT_KEY or GOOGLE_CLOUD_TOKEN")
 
 
 async def proxy_task(
@@ -52,10 +72,12 @@ async def create_proxy(client_websocket: WebSocketCommonProtocol) -> None:
     Args:
         client_websocket: The WebSocket connection of the client.
     """
+    
+    token = get_access_token()
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {BEARER_TOKEN}",
+        "Authorization": f"Bearer {token}",
     }
 
     async with websockets.connect(

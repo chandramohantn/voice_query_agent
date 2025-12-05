@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-05] - Add Service Account Authentication Support
+
+### Added
+- Service account key authentication support in backend
+- `get_access_token()` function to handle multiple auth methods
+- `SERVICE_ACCOUNT_KEY` environment variable
+- `google-auth` dependency for service account authentication
+- Volume mount in docker-compose.yml for service account key file
+
+### Changed
+- Backend now prioritizes service account key over bearer token
+- Token retrieval moved to dynamic function instead of static variable
+- Authentication method logged at startup
+- Updated .env.example with service account configuration
+
+### Fixed
+- Token expiration issue (service account tokens auto-refresh)
+- Manual token refresh no longer required
+
+### Benefits
+- No more hourly token expiration
+- Automatic token refresh
+- Better suited for production deployments
+- Fallback to bearer token for development
+
 ## [2025-12-05] - Add SSL/TLS Support for Backend WebSocket
 
 ### Added

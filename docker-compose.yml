@@ -9,6 +9,7 @@ services:
       - "8080:8080"
     volumes:
       - ./service-account-key.json:/app/service-account-key.json:ro
+      - ./backend/ssl:/app/ssl:ro
     environment:
       - GOOGLE_CLOUD_TOKEN=${GOOGLE_CLOUD_TOKEN}
       - GOOGLE_CLOUD_PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}

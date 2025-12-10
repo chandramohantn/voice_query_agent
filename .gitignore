@@ -28,3 +28,8 @@ backend/ssl/
 # OS
 .DS_Store
 Thumbs.db
+
+*.key
+*.crt
+service-account-key.json
+ssl/

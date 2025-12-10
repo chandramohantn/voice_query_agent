@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-11] - Fix SSL WebSocket Configuration
+
+### Fixed
+- Updated BACKEND_URL from ws:// to wss:// for SSL-enabled WebSocket connections
+- Resolved frontend-backend connection issues when SSL is enabled
+
 ## [2025-12-05] - Fix Missing Requests Dependency
 
 ### Fixed

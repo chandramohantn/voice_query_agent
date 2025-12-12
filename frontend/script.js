@@ -80,7 +80,7 @@ geminiLiveApi.onReceiveResponse = (messageResponse) => {
         addTranscriptionMessage("User", messageResponse.data);
     } else if (messageResponse.type == "OUTPUT_TRANSCRIPTION") {
         console.log("Gemini transcription: ", messageResponse.data);
-        addTranscriptionMessage("Gemini", messageResponse.data);
+        addTranscriptionMessage("AI", messageResponse.data);
     }
 };
 
@@ -100,7 +100,7 @@ function addMessageToChat(message) {
 function addTranscriptionMessage(speaker, message) {
     const textChat = document.getElementById("text-chat");
     const newParagraph = document.createElement("p");
-    newParagraph.textContent = `[${speaker} Transcription]: ${message}`;
+    newParagraph.textContent = `[${speaker}]: ${message}`;
     newParagraph.style.fontStyle = "italic";
     newParagraph.style.color = speaker === "User" ? "#0066cc" : "#cc6600";
     textChat.appendChild(newParagraph);

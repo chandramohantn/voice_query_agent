@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-12] - Add Clear Transcript Feature
+
+### Added
+- **Clear Transcript Button**: Users can now clear all conversation transcripts and start fresh
+  - "Clear Transcript" button with Material Design clear icon next to download button
+  - Clears both visible UI transcription messages and stored conversation history
+  - Safe error handling to prevent WebSocket connection issues
+  - Console logging for successful clear operations
+
+### Changed
+- **Frontend (`index.html`)**:
+  - Added clear transcript button in flex container with download button
+  - Updated button layout with 10px gap between buttons
+
+- **Frontend (`script.js`)**:
+  - Added `clearTranscript()` function with try-catch error handling
+  - Function clears `text-chat` innerHTML and resets `transcriptHistory` array
+  - Added null checks for DOM elements to prevent errors
+
+### Fixed
+- Added error handling in `clearTranscript()` to prevent WebSocket connection crashes
+- Safe DOM manipulation to avoid interference with active connections
+
 ## [2025-12-12] - Add Download Transcript Feature
 
 ### Added

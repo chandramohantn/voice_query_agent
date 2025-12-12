@@ -131,6 +131,23 @@ function downloadTranscript() {
     URL.revokeObjectURL(url);
 }
 
+function clearTranscript() {
+    try {
+        // Clear UI display safely
+        const textChat = document.getElementById("text-chat");
+        if (textChat) {
+            textChat.innerHTML = '';
+        }
+        
+        // Clear stored history
+        transcriptHistory = [];
+        
+        console.log('Transcript cleared successfully');
+    } catch (error) {
+        console.error('Error clearing transcript:', error);
+    }
+}
+
 function generateTranscriptText() {
     let content = 'Voice Query Agent - Conversation Transcript\n';
     content += '='.repeat(50) + '\n';

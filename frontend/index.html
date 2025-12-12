@@ -112,10 +112,16 @@
   <div id="transcription-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
       <h3 style="margin: 0;">Conversation Transcription</h3>
-      <md-outlined-button onclick="downloadTranscript()">
-        <md-icon slot="icon">download</md-icon>
-        Download Transcript
-      </md-outlined-button>
+      <div style="display: flex; gap: 10px;">
+        <md-outlined-button onclick="clearTranscript()">
+          <md-icon slot="icon">clear</md-icon>
+          Clear Transcript
+        </md-outlined-button>
+        <md-outlined-button onclick="downloadTranscript()">
+          <md-icon slot="icon">download</md-icon>
+          Download Transcript
+        </md-outlined-button>
+      </div>
     </div>
     <div id="text-chat" class="transcription-display">
       <!-- Transcription messages will appear here -->

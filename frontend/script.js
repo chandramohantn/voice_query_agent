@@ -72,6 +72,12 @@ geminiLiveApi.onReceiveResponse = (messageResponse) => {
     } else if (messageResponse.type == "TEXT") {
         console.log("Gemini said: ", messageResponse.data);
         newModelMessage(messageResponse.data);
+    } else if (messageResponse.type == "INPUT_TRANSCRIPTION") {
+        console.log("User said: ", messageResponse.data);
+        addTranscriptionMessage("User", messageResponse.data);
+    } else if (messageResponse.type == "OUTPUT_TRANSCRIPTION") {
+        console.log("Gemini transcription: ", messageResponse.data);
+        addTranscriptionMessage("Gemini", messageResponse.data);
     }
 };
 
@@ -85,6 +91,15 @@ function addMessageToChat(message) {
     const textChat = document.getElementById("text-chat");
     const newParagraph = document.createElement("p");
     newParagraph.textContent = message;
+    textChat.appendChild(newParagraph);
+}
+
+function addTranscriptionMessage(speaker, message) {
+    const textChat = document.getElementById("text-chat");
+    const newParagraph = document.createElement("p");
+    newParagraph.textContent = `[${speaker} Transcription]: ${message}`;
+    newParagraph.style.fontStyle = "italic";
+    newParagraph.style.color = speaker === "User" ? "#0066cc" : "#cc6600";
     textChat.appendChild(newParagraph);
 }
 

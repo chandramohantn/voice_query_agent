@@ -5,9 +5,17 @@ class GeminiLiveResponseMessage {
         this.endOfTurn = data?.serverContent?.turnComplete;
 
         const parts = data?.serverContent?.modelTurn?.parts;
+        const inputTranscription = data?.serverContent?.inputTranscription;
+        const outputTranscription = data?.serverContent?.outputTranscription;
 
         if (data?.setupComplete) {
             this.type = "SETUP COMPLETE";
+        } else if (inputTranscription?.text) {
+            this.data = inputTranscription.text;
+            this.type = "INPUT_TRANSCRIPTION";
+        } else if (outputTranscription?.text) {
+            this.data = outputTranscription.text;
+            this.type = "OUTPUT_TRANSCRIPTION";
         } else if (parts?.length && parts[0].text) {
             this.data = parts[0].text;
             this.type = "TEXT";
@@ -114,6 +122,8 @@ class GeminiLiveAPI {
                 system_instruction: {
                     parts: [{ text: this.systemInstructions }],
                 },
+                input_audio_transcription: {},
+                output_audio_transcription: {},
             },
         };
         this.sendMessage(sessionSetupMessage);

@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-12] - Add Real-Time Voice Transcription
+
+### Added
+- **Voice Transcription Feature**: Real-time transcription of both user input and AI output speech
+  - Input transcription: User speech converted to text with blue styling
+  - Output transcription: AI responses converted to text with orange styling
+  - Transcription display container with scrollable conversation history
+  - Enhanced backend logging with emoji indicators (🎤 for input, 🔊 for output)
+
+### Changed
+- **Backend (`main.py`)**: 
+  - Enabled transcription message detection and logging
+  - Added structured logging for setup and server messages
+  - Improved message filtering to reduce noise in logs
+
+- **Frontend (`index.html`)**:
+  - Added transcription container with conversation display area
+  - Integrated transcription UI below microphone controls
+
+- **Styling (`styles.css`)**:
+  - Added responsive transcription display styling
+  - Color-coded transcription messages for better readability
+  - Scrollable container for long conversations
+
+### Technical Details
+- Leveraged existing Gemini Live API transcription configuration (`input_audio_transcription` and `output_audio_transcription`)
+- Utilized pre-existing frontend transcription handling in `GeminiLiveResponseMessage` class
+- Maintained backward compatibility with existing voice-to-voice functionality
+
 ## [2025-12-11] - Fix SSL WebSocket Configuration
 
 ### Fixed

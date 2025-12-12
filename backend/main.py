@@ -22,7 +22,7 @@ BIND_HOST = os.getenv("BIND_HOST", "0.0.0.0")
 SSL_CERT = os.getenv("SSL_CERT", None)
 SSL_KEY = os.getenv("SSL_KEY", None)
 
-DEBUG = False
+DEBUG = True
 
 
 def get_access_token():
@@ -55,8 +55,26 @@ async def proxy_task(
     async for message in client_websocket:
         try:
             data = json.loads(message)
-            if DEBUG:
-                print("proxying: ", data)
+            
+            # Log transcription messages with detailed structure
+            if "serverContent" in data:
+                server_content = data["serverContent"]
+                if "inputTranscription" in server_content:
+                    transcription = server_content["inputTranscription"]
+                    if transcription.get("text"):
+                        print(f"🎤 INPUT TRANSCRIPTION: {transcription['text']}")
+                if "outputTranscription" in server_content:
+                    transcription = server_content["outputTranscription"]
+                    if transcription.get("text"):
+                        print(f"🔊 OUTPUT TRANSCRIPTION: {transcription['text']}")
+            
+            # Log setup and non-audio messages for debugging
+            if DEBUG and "realtimeInput" not in data:
+                if "setup" in data:
+                    print("Setup message:", data)
+                elif "serverContent" in data and not data["serverContent"].get("modelTurn", {}).get("parts", [{}])[0].get("inlineData"):
+                    print("Server message:", data)
+                
             await server_websocket.send(json.dumps(data))
         except Exception as e:
             print(f"Error processing message: {e}")
@@ -107,6 +125,11 @@ async def main() -> None:
     """
     Starts the WebSocket server and listens for incoming client connections.
     """
+    print("Starting Voice Query Agent Backend...")
+    print(f"PROJECT_ID: {PROJECT_ID}")
+    print(f"SERVICE_ACCOUNT_KEY: {SERVICE_ACCOUNT_KEY}")
+    print(f"BEARER_TOKEN exists: {bool(BEARER_TOKEN)}")
+    
     ssl_context = None
     if SSL_CERT and SSL_KEY:
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
@@ -116,6 +139,7 @@ async def main() -> None:
         print(f"Running websocket server (ws) {BIND_HOST}:{PORT}...")
     
     async with websockets.serve(handle_client, BIND_HOST, PORT, ssl=ssl_context):
+        print("WebSocket server started successfully!")
         # Run forever
         await asyncio.Future()
 

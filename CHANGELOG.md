@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2025-12-12] - Add Download Transcript Feature
+
+### Added
+- **Download Transcript Button**: Users can now download complete conversation transcripts as text files
+  - "Download Transcript" button with Material Design icon in transcription container
+  - Automatic transcript storage in browser memory during conversation
+  - Generated text file includes timestamps, speaker labels, and formatted content
+  - Filename format: `voice-transcript-YYYY-MM-DD-HH-MM.txt`
+
+### Changed
+- **Frontend (`script.js`)**:
+  - Added `transcriptHistory` array for storing conversation data
+  - Modified `addTranscriptionMessage()` to store messages with timestamps
+  - Added `downloadTranscript()` and `generateTranscriptText()` functions
+
+- **Frontend (`index.html`)**:
+  - Added download button with flex layout in transcription header
+  - Integrated Material Design download icon
+
+- **Styling (`styles.css`)**:
+  - Updated transcription header styling for button layout
+
+### Technical Details
+- Uses browser Blob API and URL.createObjectURL() for file generation
+- No backend changes required - purely client-side implementation
+- Maintains conversation history in memory during session
+- Provides user feedback for empty transcripts
+
 ## [2025-12-12] - Add Real-Time Voice Transcription
 
 ### Added

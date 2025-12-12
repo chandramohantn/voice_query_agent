@@ -4,6 +4,9 @@ window.addEventListener("load", (event) => {
     setAvailableMicrophoneOptions();
 });
 
+// Global transcript storage
+let transcriptHistory = [];
+
 const PROXY_URL = window.ENV?.BACKEND_URL || "ws://localhost:8080";
 const PROJECT_ID = window.ENV?.PROJECT_ID || "gen-lang-client-0427088816";
 const MODEL = window.ENV?.MODEL || "gemini-2.0-flash-live-preview-04-09";
@@ -101,6 +104,44 @@ function addTranscriptionMessage(speaker, message) {
     newParagraph.style.fontStyle = "italic";
     newParagraph.style.color = speaker === "User" ? "#0066cc" : "#cc6600";
     textChat.appendChild(newParagraph);
+    
+    // Store for download
+    transcriptHistory.push({
+        timestamp: new Date(),
+        speaker: speaker,
+        message: message
+    });
+}
+
+function downloadTranscript() {
+    if (transcriptHistory.length === 0) {
+        alert('No transcript available to download.');
+        return;
+    }
+    
+    const content = generateTranscriptText();
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `voice-transcript-${new Date().toISOString().slice(0, 16).replace(/:/g, '-')}.txt`;
+    a.click();
+    
+    URL.revokeObjectURL(url);
+}
+
+function generateTranscriptText() {
+    let content = 'Voice Query Agent - Conversation Transcript\n';
+    content += '='.repeat(50) + '\n';
+    content += `Generated: ${new Date().toLocaleString()}\n\n`;
+    
+    transcriptHistory.forEach(entry => {
+        const time = entry.timestamp.toLocaleTimeString();
+        content += `[${time}] ${entry.speaker}: ${entry.message}\n`;
+    });
+    
+    return content;
 }
 
 function newModelMessage(message) {

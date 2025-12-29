@@ -138,10 +138,17 @@ async def main() -> None:
     else:
         print(f"Running websocket server (ws) {BIND_HOST}:{PORT}...")
     
-    async with websockets.serve(handle_client, BIND_HOST, PORT, ssl=ssl_context):
-        print("WebSocket server started successfully!")
-        # Run forever
-        await asyncio.Future()
+    # Start the existing WebSocket server for browser clients
+    websocket_server = websockets.serve(handle_client, BIND_HOST, PORT, ssl=ssl_context)
+    
+    print("WebSocket server started successfully!")
+    print("Note: To enable Twilio integration, also run:")
+    print("  python backend/twilio_handler.py (for HTTP webhooks on port 8082)")
+    print("  python backend/media_stream_handler.py (for media streams on port 8081)")
+    
+    # Run the WebSocket server
+    async with websocket_server:
+        await asyncio.Future()  # Run forever
 
 
 if __name__ == "__main__":
